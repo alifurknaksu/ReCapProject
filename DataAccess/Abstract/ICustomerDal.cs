@@ -6,9 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IColorDal : IEntityRepository<Color>
+    public interface ICustomerDal : IEntityRepository<Customer>
     {
-        void Delete(System.Drawing.Color color);
-        void Add(System.Drawing.Color color);
     }
 }

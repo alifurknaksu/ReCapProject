@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Business.Constants;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -10,37 +11,52 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarTest();
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
-            {
-                Console.WriteLine(brand.BrandName);
-            }
+            //CarTest();
+            //    BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //    foreach (var brand in brandManager.GetAll())
+            //    {
+            //        Console.WriteLine(brand.BrandName);
+            //    }
+            //}
+        }
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Rent(new Rental { CarId = 2, CustomerId = 1, RentDate = DateTime.Now });
+            Console.WriteLine(result.Message);
         }
 
-        private static void CarTest()
+        private static void UserTest()
         {
-            CarManager carManager = new CarManager(new EfCarDal());
+            UserManager userManager = new UserManager(new EfUserDal());
+            userManager.Add(new User
+            {FirstName = "Ali", LastName = "Aksu", Email = "alaks@hotmail.com", Password = "12564"
+            });
+            Console.WriteLine(Messages.UserAdded);
 
-            var result = carManager.GetCarDetails();
+            //private static void CarTest()
+            //{
+            //    CarManager carManager = new CarManager(new EfCarDal());
 
-            if (result.Success)
-            {
-                foreach (var car in result.Data)
-                {
-                    Console.WriteLine(car.Id + "/" + car.BrandName);
-                }
+            //     var result = carManager.GetCarDetails();
 
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
-            foreach (var car in carManager.GetCarDetails().Data)
-            {
-                Console.WriteLine(car.Id + "/" + car.BrandName);
-               // Console.WriteLine(car.Description + "\nArabanın Günlük Kirası: " + car.DailyPrice);
-            }
+            //    if (result.Success)
+            //    {
+            //        foreach (var car in result.Data)
+            //        {
+            //            Console.WriteLine(car.Id + "/" + car.BrandName);
+            //        }
+
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine(result.Message);
+            //    }
+            //    foreach (var car in carManager.GetCarDetails().Data)
+            //    {
+             //       Console.WriteLine(car.Id + "/" + car.BrandName);
+                    // Console.WriteLine(car.Description + "\nArabanın Günlük Kirası: " + car.DailyPrice);
+            //    }
 
             //Car car1 = carManager.GetbyId(1);
             //Console.WriteLine("\n\nId'si 1 olan Otomobilin Kirası: " + car1.DailyPrice);

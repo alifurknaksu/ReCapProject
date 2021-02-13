@@ -9,9 +9,9 @@ using System.Text;
 namespace Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity>
-        where TContext : DbContext, new()
+           where TEntity : class, IEntity, new()
+           where TContext : DbContext, new()
     {
-
         public void Add(TEntity entity)
         {
             using (TContext context = new TContext())
@@ -44,13 +44,10 @@ namespace Core.DataAccess.EntityFramework
         {
             using (TContext context = new TContext())
             {
-                return filter == null ? context.Set<TEntity>().ToList() : context.Set<TEntity>().Where(filter).ToList();
+                return filter == null
+                    ? context.Set<TEntity>().ToList()
+                    : context.Set<TEntity>().Where(filter).ToList();
             }
-        }
-
-        public TEntity GetById(int id)
-        {
-            throw new NotImplementedException();
         }
 
         public void Update(TEntity entity)
@@ -62,6 +59,5 @@ namespace Core.DataAccess.EntityFramework
                 context.SaveChanges();
             }
         }
-
     }
 }

@@ -49,7 +49,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Car>>( _carDal.GetAll(),Messages.CarsListed);
         }
              
-        public IDataResult<Car> GetbyCarId(int id)
+        public IDataResult<Car> GetByCarId(int id)
         {
             return new SuccessDataResult<Car>( _carDal.Get(c=>c.CarId == id));
         }

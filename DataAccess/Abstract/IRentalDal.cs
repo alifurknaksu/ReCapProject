@@ -13,4 +13,4 @@ namespace DataAccess.Abstract
         List<RentalDetailDto> GetRentalDetails(Expression<Func<Rental, bool>> filter = null);
     }
 }
-}
+

@@ -8,7 +8,6 @@ namespace DataAccess.Abstract
 {
     public interface IColorDal : IEntityRepository<Color>
     {
-        void Delete(System.Drawing.Color color);
-        void Add(System.Drawing.Color color);
+    
     }
 }

@@ -12,14 +12,7 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfColorDal : EfEntityRepositoryBase<Color, CarProjectContext>, IColorDal
     {
-        public void Add(System.Drawing.Color color)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Delete(System.Drawing.Color color)
-        {
-            throw new NotImplementedException();
-        }
     }
+
 }

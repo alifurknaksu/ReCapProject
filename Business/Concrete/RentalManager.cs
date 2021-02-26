@@ -12,7 +12,7 @@ namespace Business.Concrete
 {
     public class RentalManager : IRentalService
     {
-        private IRentalDal _rentalDal;
+        IRentalDal _rentalDal;
 
        
         public RentalManager(IRentalDal rentalDal)
@@ -41,7 +41,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails(), Messages.RentListed);
         }
 
-        public IResult Rent(Rental rental)
+        public IResult Add(Rental rental)
         {
             var results = _rentalDal.GetAll(r => r.CarId == rental.CarId);
             foreach (var result in results)

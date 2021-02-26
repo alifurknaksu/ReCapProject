@@ -22,7 +22,7 @@ namespace ConsoleUI
         private static void RentalTest()
         {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            var result = rentalManager.Rent(new Rental { CarId = 2, CustomerId = 1, RentDate = DateTime.Now });
+            var result = rentalManager.Add(new Rental { CarId = 2, CustomerId = 1, RentDate = DateTime.Now });
             Console.WriteLine(result.Message);
         }
 

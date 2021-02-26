@@ -15,12 +15,12 @@ namespace DataAccess.Concrete
         public InMemoryCarDal()
         {
             _cars = new List<Car> {
-                new Car{CarId=1,CarName="Tesla",BrandId=1,ColorId=1,ModelYear=2020,DailyPrice=650,Description="Otomatik, Elektrikli, Otonom, 4 Koltuk, Tesla Model X"},
-                new Car{CarId=2,CarName="Volvo",BrandId=2,ColorId=2,ModelYear=2015,DailyPrice=250,Description="Manuel, Benzinli, Klimalı, 4 Koltuk, Navigasyonlu, Volvo S60 "},
-                new Car{CarId=3,CarName="Porsche",BrandId=3,ColorId=1,ModelYear=2018,DailyPrice=800,Description=" Yarı Otomatik, Benzinli, 2 Koltuk, Porsche Cayman"},
-                new Car{CarId=4,CarName="Mecedes",BrandId=4,ColorId=2,ModelYear=2005,DailyPrice=100,Description="Yarı Otomatik, Benzin/LPG, 4 Koltuk, Mercedes Benz CLS 350 AMG"},
-                new Car{CarId=5,CarName="Chevrolet",BrandId=5,ColorId=1,ModelYear=1960,DailyPrice=1500,Description="Otomatik, Benzinli, 2 Koltuk , Chevrolet Corvette Stingray"},
-                new Car{CarId=6,CarName="Porsche",BrandId=3,ColorId=3,ModelYear=2021,DailyPrice=750,Description ="Yarı Otomatik, Dizel, 4 Koltuk, Porsche Cayenne"}
+                new Car{CarId=1,CarName="Model X",BrandId=1,ColorId=2,ModelYear=2018,DailyPrice=1000,Description="Otomatik, Elektrikli, Otonom, 4 Koltuk, Tesla Model X"},
+                new Car{CarId=2,CarName="Cayenne",BrandId=2,ColorId=1,ModelYear=2020,DailyPrice=1400,Description="Otomatik, Benzinli, Klimalı, 4 Koltuk, Navigasyonlu,Porsche Cayenne "},
+                new Car{CarId=3,CarName="Kadjar",BrandId=3,ColorId=1,ModelYear=2020,DailyPrice=750,Description="Otomatik, Benzinli, 4 Koltuk, Renault Kadjar"},
+                new Car{CarId=4,CarName="AMG Gt-S",BrandId=5,ColorId=7,ModelYear=2020,DailyPrice=1250,Description="Otomatik, Benzin, 2 Koltuk, Mercedes AMG Gt-S"},
+                new Car{CarId=5,CarName="Corvette C8",BrandId=7,ColorId=1,ModelYear=2020,DailyPrice=1400,Description="Otomatik, Benzinli, 2 Koltuk , Chevrolet Corvette C8"},
+                new Car{CarId=6,CarName="Cayman",BrandId=2,ColorId=1,ModelYear=2020,DailyPrice=1100,Description ="Otomatik, Benzinli, 4 Koltuk, Porsche Cayman"}
             };
         }
         public void Add(Car car)

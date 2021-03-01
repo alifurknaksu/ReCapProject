@@ -4,8 +4,8 @@ using System.IO;
 using System.Text;
 using Business.Abstract;
 using Business.Constants;
-using Core.Utilitiess.Business;
-using Core.Utilitiess.Results;
+using Core.Utilities.Business;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 

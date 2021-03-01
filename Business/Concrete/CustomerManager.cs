@@ -1,6 +1,6 @@
 ﻿using Business.Abstract;
 using Business.Constants;
-using Core.Utilitiess.Results;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -36,7 +36,7 @@ namespace Business.Concrete
 
         public IDataResult<Customer> GetByCustomerId(int id)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.UserId == id));
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == id));
         }
 
         public IResult Update(Customer customer)

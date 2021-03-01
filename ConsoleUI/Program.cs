@@ -1,5 +1,6 @@
 ﻿using Business.Concrete;
 using Business.Constants;
+using Core.Entities.Concrete;
 using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -28,11 +29,11 @@ namespace ConsoleUI
 
         private static void UserTest()
         {
-            UserManager userManager = new UserManager(new EfUserDal());
-            userManager.Add(new User
-            {FirstName = "Ali", LastName = "Aksu", Email = "alaks@hotmail.com", Password = "12564"
-            });
-            Console.WriteLine(Messages.UserAdded);
+            //UserManager userManager = new UserManager(new EfUserDal());
+            //userManager.Add(new User
+            //{FirstName = "Ali", LastName = "Aksu", Email = "alaks@hotmail.com", Password = "12564"
+            //});
+            //Console.WriteLine(Messages.UserAdded);
 
             //private static void CarTest()
             //{

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Core.Utilitiess.Interceptors
+namespace Core.Utilities.Interceptors
 {
 
     public class AspectInterceptorSelector : IInterceptorSelector

@@ -55,5 +55,10 @@ namespace Business.Constants
         public static string MaintenanceTime = "Sistem bakımda.";
         public static string NotListed = "Listelenmedi.";
         public static string Listed = "Listelendi.";
+
+        public static string CarCountOfCategoryError = "Kategori limiti doldu.";
+        public static string CarNameAllreadyExists = "Bu isimde bir araç bulunuyor.";
+        public static string CustomerLimitExiceded = "Müşteri limidi aşıldı.";
+        public static string EmailControl = "Email kontrol ediliyor.";
     }
 }

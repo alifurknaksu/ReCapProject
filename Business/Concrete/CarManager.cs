@@ -1,8 +1,10 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspect.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -10,6 +12,7 @@ using Entities.DTOs;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Business.Concrete
@@ -17,14 +20,22 @@ namespace Business.Concrete
     public class CarManager : ICarService
     {
         ICarDal _carDal;
-        public CarManager(ICarDal carDal)
+        ICustomerService _customerService;
+        public CarManager(ICarDal carDal, ICustomerService customerService)
         {
             _carDal = carDal;
+            _customerService = customerService;
         }
 
+        [SecuredOperation("admin,editor")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
+            IResult result = BusinessRules.Run(CheckIfCarCountOfCategoryCorrect(car.CarId), CheckIfCarNameExists(car.CarName), CheckIfCustomerLimitExiceded());
+            if (result != null)
+            {
+                return result;
+            }
             _carDal.Add(car);
 
             return new SuccessResult(Messages.CarAdded);
@@ -43,7 +54,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour==23)
+            if (DateTime.Now.Hour==24)
             {
                 return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
             }
@@ -73,6 +84,37 @@ namespace Business.Concrete
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        private IResult CheckIfCarCountOfCategoryCorrect(int carId)
+        {
+            var result = _carDal.GetAll(c => c.CarId == carId).Count;
+            if (result >= 15)
+            {
+                return new ErrorResult(Messages.CarCountOfCategoryError);
+            }
+            return new SuccessResult();
+        }
+
+       
+        private IResult CheckIfCarNameExists(string carName)
+        {
+            var result = _carDal.GetAll(c => c.CarName == carName).Any();
+            if (result)
+            {
+                return new ErrorResult(Messages.CarNameAllreadyExists);
+            }
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCustomerLimitExiceded()
+        {
+            var result = _customerService.GetAllCustomers();
+            if (result.Data.Count > 20)
+            {
+                return new ErrorResult(Messages.CustomerLimitExiceded);
+            }
+            return new SuccessResult();
         }
     }
 }

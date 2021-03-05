@@ -37,16 +37,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetByMail(string email)
         {
-            User user = _userDal.Get(u => u.Email.ToLower() == email.ToLower());
-
-            if (user == null)
-            {
-                return new ErrorDataResult<User>(Messages.NotListed);
-            }
-            else
-            {
-                return new SuccessDataResult<User>(user, Messages.Listed);
-            }
+            return new SuccessDataResult<User>(_userDal.Get(filter: u => u.Email == email), Messages.Listed);
         }
 
         public IDataResult<User> GetByUserId(int id)
@@ -56,7 +47,7 @@ namespace Business.Concrete
 
         public IDataResult<List<OperationClaim>> GetClaims(User user)
         {
-            return new SuccessDataResult<List<OperationClaim>>(_userDal.GetClaims(user));
+            return new SuccessDataResult<List<OperationClaim>>( _userDal.GetClaims(user), Messages.Listed);
         }
 
         public IResult Update(User user)

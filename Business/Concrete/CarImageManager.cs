@@ -8,6 +8,8 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Core.Aspects.Autofac.Caching;
+using Business.BusinessAspects.Autofac;
 
 namespace Business.Concrete
 {
@@ -20,6 +22,8 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
+        [SecuredOperation("carimage.add,moderator,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Add(CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckIfCarImagesCountExist(carImage.CarId));
@@ -34,6 +38,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ImageAdded);
         }
 
+        [SecuredOperation("carimage.delete,moderator,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Update(CarImage carImage)
         {
             _carImageDal.Update(carImage);
@@ -41,6 +47,8 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ImagesUpdated);
         }
 
+        [SecuredOperation("carimage.delete,moderator,admin")]
+        [CacheRemoveAspect("ICarImageService.Get")]
         public IResult Delete(CarImage carImage)
         {
             _carImageDal.Delete(carImage);
@@ -53,6 +61,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
         }
 
+        [CacheAspect]
         public IDataResult<CarImage> GetCarImageById(int carImageId)
         {
             return new SuccessDataResult<CarImage>(_carImageDal.Get(image => image.Id == carImageId));

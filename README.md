@@ -116,7 +116,7 @@
 ## CARS
 
 | CarId        | CarName      | BrandId        | ColorId       |ModelYear     |DailyPrice    |Description                             |
-| :---         | :---         |     :---:      |          ---: |         ---: |         ---: |         ---:                           |
+| :---         | :---         |     :---:      |          ---: |         ---: |         ---: |         :---                           |
 | 1            | Model X      | 1              | 2             | 2018         | 1000,0000    | 4 Koltuk ,Otomatik, Elektrikli, Otonom |
 | 2            | Cayenne      | 2              | 1             | 2020         | 1400,0000    | 4 Koltuk, Otomatik,Benzinli            |
 | 3            | Kadjar       | 3              | 5             | 2020         | 750,0000     | 4 Koltuk,  Otomatik,  Benzinli         |

@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspects.Autofac;
 using Business.Constants;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
@@ -24,6 +25,7 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
+        [SecuredOperation("user.delete,moderator,admin")]
         public IResult Delete(User user)
         {
             _userDal.Delete(user);
@@ -50,6 +52,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<OperationClaim>>( _userDal.GetClaims(user), Messages.Listed);
         }
 
+        [SecuredOperation("user.update,moderator,admin")]
         public IResult Update(User user)
         {
             _userDal.Update(user);

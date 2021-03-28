@@ -13,8 +13,8 @@ namespace Business.Concrete
 {
     public class AuthManager : IAuthService
     {
-        private IUserService _userService;
-        private ITokenHelper _tokenHelper;
+        private readonly IUserService _userService;
+        private readonly ITokenHelper _tokenHelper;
 
         public AuthManager(IUserService userService, ITokenHelper tokenHelper)
         {
@@ -41,23 +41,34 @@ namespace Business.Concrete
 
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
-            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
+            var userToCheckResult = _userService.GetByMail(userForLoginDto.Email);
+            if (!userToCheckResult.Success)
+            {
+                return new ErrorDataResult<User>(Messages.UserNotFound);
+            }
+            var userToCheck = userToCheckResult.Data;
+           
             if (userToCheck == null)
             {
                 return new ErrorDataResult<User>(Messages.UserNotFound);
             }
 
-            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(userToCheck.Data, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
         }
 
         public IResult UserExists(string email)
         {
-            if (_userService.GetByMail(email).Data != null)
+            var userResult = _userService.GetByMail(email);
+            if (!userResult.Success)
+            {
+                return new ErrorResult(userResult.Message);
+            }
+            if (userResult.Data !=null)
             {
                 return new ErrorResult(Messages.UserAlreadyExists);
             }
@@ -66,8 +77,12 @@ namespace Business.Concrete
 
         public IDataResult<AccessToken> CreateAccessToken(User user)
         {
-            var claims = _userService.GetClaims(user).Data;
-            var accessToken = _tokenHelper.CreateToken(user, claims);
+            var claimsResult = _userService.GetClaims(user);
+            if (!claimsResult.Success)
+            {
+                return new ErrorDataResult<AccessToken>(claimsResult.Message);
+            }
+            var accessToken = _tokenHelper.CreateToken(user, claimsResult.Data);
             return new SuccessDataResult<AccessToken>(accessToken, Messages.AccessTokenCreated);
         }
     }

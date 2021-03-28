@@ -10,6 +10,8 @@ using DataAccess.Abstract;
 using Entities.Concrete;
 using Core.Aspects.Autofac.Caching;
 using Business.BusinessAspects.Autofac;
+using Microsoft.AspNetCore.Http;
+using System.Linq;
 
 namespace Business.Concrete
 {
@@ -24,7 +26,7 @@ namespace Business.Concrete
 
         [SecuredOperation("carimage.add,moderator,admin")]
         [CacheRemoveAspect("ICarImageService.Get")]
-        public IResult Add(CarImage carImage)
+        public IResult Add(CarImage carImage, IFormFile formFile)
         {
             IResult result = BusinessRules.Run(CheckIfCarImagesCountExist(carImage.CarId));
 
@@ -40,7 +42,7 @@ namespace Business.Concrete
 
         [SecuredOperation("carimage.delete,moderator,admin")]
         [CacheRemoveAspect("ICarImageService.Get")]
-        public IResult Update(CarImage carImage)
+        public IResult Update(CarImage carImage, IFormFile formFile)
         {
             _carImageDal.Update(carImage);
 

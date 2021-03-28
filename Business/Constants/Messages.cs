@@ -60,5 +60,9 @@ namespace Business.Constants
         public static string CarNameAllreadyExists = "Bu isimde bir araç bulunuyor.";
         public static string CustomerLimitExiceded = "Müşteri limidi aşıldı.";
         public static string EmailControl = "Email kontrol ediliyor.";
+        public static string PaymentSuccessful = "Ödeme başarılı.";
+        public static string PaymentFailed = "Ödeme işlemi başarısız.";
+        public static string RentalUndeliveredCar = "Bu araç kiralanamaz.";
+        public static string RentalNotAvailable = "Bu araç şuanda kiralanmış durumda.";
     }
 }
